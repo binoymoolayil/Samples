@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Window</title>
+    <style>
+        .chat-popup {
+            position: fixed;
+            bottom: 0;
+            right: 30px;
+            max-height: 400px;
+            width: 300px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            z-index: 9999;
+            display: none;
+        }
+
+        .chat-header {
+            padding: 10px;
+            background-color: #e2e2e2;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .chat-body {
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            text-align: right;
+        }
+
+        .bot-message {
+            text-align: left;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .chat-btn {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="chat-btn" onclick="toggleChat()">Chat</button>
+
+    <div class="chat-popup" id="chatWindow">
+        <div class="chat-header">
+            <h3>Chat Window</h3>
+        </div>
+        <div class="chat-body" id="chatMessages">
+            <div class="chat-message bot-message">Hello! How can I assist you today?</div>
+        </div>
+        <input type="text" class="input-box" id="userInput" placeholder="Type your message here..." />
+    </div>
+
+    <script>
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.style.display = chatWindow.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Handle sending user messages
+        const userInput = document.getElementById('userInput');
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && userInput.value !== '') {
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('chat-message', 'user-message');
+                userMessage.textContent = userInput.value;
+                document.getElementById('chatMessages').appendChild(userMessage);
+                userInput.value = '';
+                // TODO: Send the user message to the server and handle the response
+            }
+        });
+
+        // TODO: Implement receiving and displaying bot messages
+    </script>
+</body>
+</html>
